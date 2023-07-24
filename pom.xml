@@ -7,7 +7,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 
 	<name>Explore With Me</name>
@@ -22,9 +22,27 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<modules>
+		<module>stat-service</module>
+		<module>main-service</module>
+	</modules>
+
 	<build>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<configuration>
+						<excludes>
+							<exclude>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+							</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
