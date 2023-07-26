@@ -19,8 +19,8 @@ services:
       - "6541:5432"
     environment:
       - POSTGRES_DB=ewm-stat-service
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=iamroot
+      - POSTGRES_USER=vlad
+      - POSTGRES_PASSWORD=91735vladB!
 
   ewm-service:
     build: ./main-service
@@ -31,6 +31,7 @@ services:
       - ewm-db
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/ewm-main-service
+      - stats-server.url=http://stats-server:9090
 
   ewm-db:
     image: postgres:14-alpine
@@ -41,5 +42,5 @@ services:
       - "6542:5432"
     environment:
       - POSTGRES_DB=ewm-main-service
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=iamroot
+      - POSTGRES_USER=vlad
+      - POSTGRES_PASSWORD=91735vladB!

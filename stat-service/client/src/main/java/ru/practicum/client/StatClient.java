@@ -1,6 +1,5 @@
 package ru.practicum.client;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -17,7 +16,7 @@ import java.util.Map;
 public class StatClient {
     private final RestTemplate restTemplate;
 
-    public StatClient(@Value("${stat-server.url}") String serverUrl, RestTemplateBuilder builder) {
+    public StatClient(String serverUrl, RestTemplateBuilder builder) {
         restTemplate = builder.uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
                 .requestFactory(HttpComponentsClientHttpRequestFactory::new)
                 .build();
@@ -36,6 +35,7 @@ public class StatClient {
         );
 
         return restTemplate.exchange("/stats?start={start}&end={end}&uris={uris}&unique={unique}", HttpMethod.GET,
-                null, new ParameterizedTypeReference<List<StatResponseDto>>() {}, params).getBody();
+                null, new ParameterizedTypeReference<List<StatResponseDto>>() {
+                }, params).getBody();
     }
 }
