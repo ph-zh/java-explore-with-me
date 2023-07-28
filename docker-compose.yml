@@ -19,8 +19,8 @@ services:
       - "6541:5432"
     environment:
       - POSTGRES_DB=ewm-stat-service
-      - POSTGRES_USER=vlad
-      - POSTGRES_PASSWORD=91735vladB!
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=iamroot
 
   ewm-service:
     build: ./main-service
@@ -42,5 +42,5 @@ services:
       - "6542:5432"
     environment:
       - POSTGRES_DB=ewm-main-service
-      - POSTGRES_USER=vlad
-      - POSTGRES_PASSWORD=91735vladB!
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=iamroot
