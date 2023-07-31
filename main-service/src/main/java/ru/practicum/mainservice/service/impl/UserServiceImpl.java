@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserFullDto> getUsers(List<Long> ids, int from, int size) {
-        Pageable pageable = new OffsetBasedPageRequest(from, size, Sort.by(Sort.Direction.DESC, "id"));
+        Pageable pageable = new OffsetBasedPageRequest(from, size, Sort.by(Sort.Direction.ASC, "id"));
 
         return ids != null ?
                 userRepository.findAllByIdIn(ids, pageable).getContent().stream()

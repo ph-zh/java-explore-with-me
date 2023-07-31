@@ -50,6 +50,7 @@ public class EventMapper {
                 .requestModeration(event.isRequestModeration())
                 .state(event.getState())
                 .title(event.getTitle())
+                .views(event.getViews())
                 .build();
     }
 

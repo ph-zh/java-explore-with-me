@@ -2,6 +2,7 @@ package ru.practicum.mainservice.valid;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import ru.practicum.mainservice.exception.BadRequestException;
 import ru.practicum.mainservice.exception.ConflictException;
 import ru.practicum.mainservice.exception.NotFoundException;
 import ru.practicum.mainservice.model.Category;
@@ -23,14 +24,14 @@ public class Validator {
     public static void throwIfEventDateIsNotLaterOneHourAfterNow(LocalDateTime eventDate) {
         LocalDateTime timestamp = LocalDateTime.now().plusHours(1);
         if (eventDate.isBefore(timestamp)) {
-            throw new ConflictException("Event cannot start earlier than 1 hours from now");
+            throw new BadRequestException("Event cannot start earlier than 1 hours from now");
         }
     }
 
     public static void throwIfEventDateIsNotLaterTwoHoursAfterNow(LocalDateTime eventDate) {
         LocalDateTime timestamp = LocalDateTime.now().plusHours(2);
         if (eventDate.isBefore(timestamp)) {
-            throw new ConflictException("Event cannot start earlier than 2 hours from now");
+            throw new BadRequestException("Event cannot start earlier than 2 hours from now");
         }
     }
 

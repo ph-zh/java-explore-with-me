@@ -180,11 +180,16 @@ public class EventServiceImpl implements EventService {
         }
 
         String stateAction = updateEventRequestDto.getStateAction();
-        if (!StateAction.SEND_TO_REVIEW.toString().equals(stateAction) && !StateAction.CANCEL_REVIEW.toString().equals(stateAction)) {
-            throw new ConflictException("Field StateAction is incorrect");
+        if (stateAction !=null){
+            if (!StateAction.SEND_TO_REVIEW.toString().equals(stateAction) && !StateAction.CANCEL_REVIEW.toString().equals(stateAction)) {
+                throw new ConflictException("Field StateAction is incorrect");
+            }
         }
 
-        StateAction state = StateAction.valueOf(stateAction);
+        StateAction state = null;
+        if (stateAction != null) {
+            state = StateAction.valueOf(stateAction);
+        }
 
         Category category = null;
         if (updateEventRequestDto.getCategory() != null) {
@@ -192,6 +197,9 @@ public class EventServiceImpl implements EventService {
         }
 
         Event event = validator.throwIfEventFromCorrectUserNotFoundOrReturnIfExist(eventId, userId);
+        if (!event.getInitiator().getId().equals(userId)) throw new ConflictException("user not found");
+        if(event.getState().equals(EventState.PUBLISHED)) throw new ConflictException("already published");
+
 
         EventMapper.fromUpdateDtoToEvent(updateEventRequestDto, event, category, eventDate, state);
 
@@ -246,6 +254,7 @@ public class EventServiceImpl implements EventService {
         where.and(byEventDate);
 
         events = eventRepository.findAll(where, pageable).getContent();
+        if (events.size() == 0) throw new BadRequestException("No events found");
         addViewsAndConfirmedRequestsForEvents(events);
 
         if (onlyAvailable) {
@@ -263,7 +272,7 @@ public class EventServiceImpl implements EventService {
                 .orElseThrow(() -> new NotFoundException(String.format("Event with id=%d was not found", eventId)));
 
         if (!event.getState().equals(EventState.PUBLISHED)) {
-            throw new BadRequestException("Event is not available because it has not been published yet");
+            throw new NotFoundException("Event is not available because it has not been published yet");
         }
 
         addViewsAndConfirmedRequestsForEvents(List.of(event));

@@ -48,7 +48,8 @@ public class ErrorHandler {
 
     @ExceptionHandler({ConstraintViolationException.class,
             MethodArgumentNotValidException.class,
-            MissingRequestHeaderException.class})
+            MissingRequestHeaderException.class,
+            ConstraintViolationException.class})
     public ResponseEntity<ErrorResponseDto> badRequestExceptionHandler(Exception e) {
         log.error(e.getMessage());
         ErrorResponseDto errorResponseDto = ErrorResponseDto.builder()
