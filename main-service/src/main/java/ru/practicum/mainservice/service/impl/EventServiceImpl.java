@@ -180,7 +180,7 @@ public class EventServiceImpl implements EventService {
         }
 
         String stateAction = updateEventRequestDto.getStateAction();
-        if (stateAction !=null){
+        if (stateAction != null) {
             if (!StateAction.SEND_TO_REVIEW.toString().equals(stateAction) && !StateAction.CANCEL_REVIEW.toString().equals(stateAction)) {
                 throw new ConflictException("Field StateAction is incorrect");
             }
@@ -198,7 +198,7 @@ public class EventServiceImpl implements EventService {
 
         Event event = validator.throwIfEventFromCorrectUserNotFoundOrReturnIfExist(eventId, userId);
         if (!event.getInitiator().getId().equals(userId)) throw new ConflictException("user not found");
-        if(event.getState().equals(EventState.PUBLISHED)) throw new ConflictException("already published");
+        if (event.getState().equals(EventState.PUBLISHED)) throw new ConflictException("already published");
 
 
         EventMapper.fromUpdateDtoToEvent(updateEventRequestDto, event, category, eventDate, state);

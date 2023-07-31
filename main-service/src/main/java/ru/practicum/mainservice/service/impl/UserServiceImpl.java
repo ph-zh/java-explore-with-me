@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 
         return ids != null ?
                 userRepository.findAllByIdIn(ids, pageable).getContent().stream()
-                            .map(UserMapper::toUserDto).collect(Collectors.toList()) :
+                        .map(UserMapper::toUserDto).collect(Collectors.toList()) :
                 userRepository.findAll(pageable).stream().map(UserMapper::toUserDto).collect(Collectors.toList());
     }
 
