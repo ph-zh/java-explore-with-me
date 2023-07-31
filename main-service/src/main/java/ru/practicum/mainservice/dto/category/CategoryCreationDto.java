@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 
 @Data
 public class CategoryCreationDto {
-    @Size(max = 255)
+    @Size(min = 2, max = 50)
     @NotBlank
     private String name;
 }

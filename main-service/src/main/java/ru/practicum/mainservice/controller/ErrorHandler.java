@@ -9,6 +9,7 @@ import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.practicum.mainservice.dto.error.ErrorResponseDto;
+import ru.practicum.mainservice.exception.BadRequestException;
 import ru.practicum.mainservice.exception.ConflictException;
 import ru.practicum.mainservice.exception.NotFoundException;
 import ru.practicum.mainservice.mapper.DateTimeMapper;
@@ -46,7 +47,7 @@ public class ErrorHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponseDto);
     }
 
-    @ExceptionHandler({ConstraintViolationException.class,
+    @ExceptionHandler({BadRequestException.class,
             MethodArgumentNotValidException.class,
             MissingRequestHeaderException.class,
             ConstraintViolationException.class})

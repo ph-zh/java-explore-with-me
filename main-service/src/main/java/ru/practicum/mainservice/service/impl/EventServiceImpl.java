@@ -12,6 +12,7 @@ import ru.practicum.client.StatClient;
 import ru.practicum.dto.StatResponseDto;
 import ru.practicum.mainservice.constants.Constants;
 import ru.practicum.mainservice.dto.event.*;
+import ru.practicum.mainservice.exception.BadRequestException;
 import ru.practicum.mainservice.exception.ConflictException;
 import ru.practicum.mainservice.exception.NotFoundException;
 import ru.practicum.mainservice.mapper.DateTimeMapper;
@@ -253,7 +254,7 @@ public class EventServiceImpl implements EventService {
         where.and(byEventDate);
 
         events = eventRepository.findAll(where, pageable).getContent();
-        if (events.size() == 0) throw new NotFoundException("No events found");
+        if (events.size() == 0) throw new BadRequestException("No events found");
         addViewsAndConfirmedRequestsForEvents(events);
 
         if (onlyAvailable) {
