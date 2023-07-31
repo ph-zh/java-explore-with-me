@@ -254,7 +254,7 @@ public class EventServiceImpl implements EventService {
         where.and(byEventDate);
 
         events = eventRepository.findAll(where, pageable).getContent();
-        if (events.size() == 0) throw new BadRequestException("No events found");
+        if (events.size() == 0) throw new NotFoundException("No events found");
         addViewsAndConfirmedRequestsForEvents(events);
 
         if (onlyAvailable) {
