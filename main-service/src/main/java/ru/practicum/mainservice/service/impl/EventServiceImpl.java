@@ -12,7 +12,6 @@ import ru.practicum.client.StatClient;
 import ru.practicum.dto.StatResponseDto;
 import ru.practicum.mainservice.constants.Constants;
 import ru.practicum.mainservice.dto.event.*;
-import ru.practicum.mainservice.exception.BadRequestException;
 import ru.practicum.mainservice.exception.ConflictException;
 import ru.practicum.mainservice.exception.NotFoundException;
 import ru.practicum.mainservice.mapper.DateTimeMapper;

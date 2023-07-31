@@ -3,7 +3,6 @@ package ru.practicum.mainservice.valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.practicum.mainservice.exception.BadRequestException;
-import ru.practicum.mainservice.exception.ConflictException;
 import ru.practicum.mainservice.exception.NotFoundException;
 import ru.practicum.mainservice.model.Category;
 import ru.practicum.mainservice.model.Event;

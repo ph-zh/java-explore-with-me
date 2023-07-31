@@ -69,12 +69,12 @@ public class Event {
         return confirmedRequest;
     }
 
-    public long getViews() {
-        return views;
-    }
-
     public void setConfirmedRequest(int confirmedRequest) {
         this.confirmedRequest = confirmedRequest;
+    }
+
+    public long getViews() {
+        return views;
     }
 
     public void setViews(long views) {
