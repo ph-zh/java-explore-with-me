@@ -293,7 +293,6 @@ public class EventServiceImpl implements EventService {
             Long id = Long.valueOf(stat.getUri().substring(8));
             hits.put(id, stat.getHits());
         }
-
         return hits;
     }
 
