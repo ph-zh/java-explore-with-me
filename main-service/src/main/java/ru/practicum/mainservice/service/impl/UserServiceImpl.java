@@ -34,8 +34,10 @@ public class UserServiceImpl implements UserService {
     public List<UserFullDto> getUsers(List<Long> ids, int from, int size) {
         Pageable pageable = new OffsetBasedPageRequest(from, size, Sort.by(Sort.Direction.DESC, "id"));
 
-        return userRepository.findAllByIdIn(ids, pageable).getContent().stream()
-                .map(UserMapper::toUserDto).collect(Collectors.toList());
+        return ids != null ?
+                userRepository.findAllByIdIn(ids, pageable).getContent().stream()
+                            .map(UserMapper::toUserDto).collect(Collectors.toList()) :
+                userRepository.findAll(pageable).stream().map(UserMapper::toUserDto).collect(Collectors.toList());
     }
 
     @Transactional

@@ -16,10 +16,10 @@ import javax.validation.constraints.Size;
 public class UserFullDto {
     private Long id;
     @NotBlank
-    @Size(max = 255)
+    @Size(min = 2, max = 250)
     private String name;
     @NotBlank
     @Email
-    @Size(max = 512)
+    @Size(min = 6, max = 254)
     private String email;
 }

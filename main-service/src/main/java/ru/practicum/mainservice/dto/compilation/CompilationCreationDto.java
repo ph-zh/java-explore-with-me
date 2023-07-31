@@ -13,6 +13,6 @@ public class CompilationCreationDto {
     private Set<Long> events;
     private boolean pinned;
     @NotBlank
-    @Size(min = 5, max = 255)
+    @Size(min = 2, max = 50)
     private String title;
 }

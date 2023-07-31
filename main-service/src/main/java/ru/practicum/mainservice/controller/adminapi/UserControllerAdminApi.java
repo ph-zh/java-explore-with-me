@@ -26,9 +26,9 @@ public class UserControllerAdminApi {
     }
 
     @GetMapping("/users")
-    public List<UserFullDto> getUsers(@RequestParam List<Long> ids,
-                                      @RequestParam(defaultValue = "0") @PositiveOrZero int from,
-                                      @RequestParam(defaultValue = "10") @Positive int size) {
+    public List<UserFullDto> getUsers(@RequestParam(value = "ids", required = false) List<Long> ids,
+                                      @RequestParam(value = "from", required = false, defaultValue = "0") @PositiveOrZero Integer from,
+                                      @RequestParam(value = "size", required = false, defaultValue = "10") @Positive Integer size) {
         return userService.getUsers(ids, from, size);
     }
 
