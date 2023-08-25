@@ -183,11 +183,13 @@ public class EventServiceImpl implements EventService {
         }
 
         String stateAction = updateEventRequestDto.getStateAction();
-        if (!StateAction.SEND_TO_REVIEW.toString().equals(stateAction) && !StateAction.CANCEL_REVIEW.toString().equals(stateAction)) {
-            throw new ConflictException("Field StateAction is incorrect");
+        StateAction state = null;
+        if(stateAction != null) {
+            if (!StateAction.SEND_TO_REVIEW.toString().equals(stateAction) && !StateAction.CANCEL_REVIEW.toString().equals(stateAction)) {
+                throw new ConflictException("Field StateAction is incorrect");
+            }
+            state = StateAction.valueOf(stateAction);
         }
-
-        StateAction state = StateAction.valueOf(stateAction);
 
         Category category = null;
         if (updateEventRequestDto.getCategory() != null) {
@@ -195,6 +197,10 @@ public class EventServiceImpl implements EventService {
         }
 
         Event event = validator.throwIfEventFromCorrectUserNotFoundOrReturnIfExist(eventId, userId);
+
+        if (event.getState().equals(EventState.PUBLISHED)) {
+            throw new ConflictException("Error");
+        }
 
         EventMapper.fromUpdateDtoToEvent(updateEventRequestDto, event, category, eventDate, state);
 
@@ -208,6 +214,11 @@ public class EventServiceImpl implements EventService {
     public List<EventShortDto> getEventsPublicApi(String text, List<Integer> categories, Boolean paid, LocalDateTime rangeStart,
                                                   LocalDateTime rangeEnd, boolean onlyAvailable, String sort, int from,
                                                   int size, HttpServletRequest request) {
+        if (rangeEnd != null && rangeStart != null) {
+            if (rangeEnd.isBefore(rangeStart)) {
+                throw new BadRequestException("End time before start time");
+            }
+        }
         List<Event> events;
         Sort sortOption = Constants.SORT_BY_ID_DESC;
         if (sort.equals(EventSortOption.EVENT_DATE.toString())) {
