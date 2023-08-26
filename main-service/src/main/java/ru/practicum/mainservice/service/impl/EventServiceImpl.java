@@ -278,7 +278,7 @@ public class EventServiceImpl implements EventService {
                 .orElseThrow(() -> new NotFoundException(String.format("Event with id=%d was not found", eventId)));
 
         if (!event.getState().equals(EventState.PUBLISHED)) {
-            throw new BadRequestException("Event is not available because it has not been published yet");
+            throw new NotFoundException("Event is not available because it has not been published yet");
         }
 
         addViewsAndConfirmedRequestsForEvents(List.of(event));
