@@ -52,7 +52,7 @@ public class RequestServiceImpl implements RequestService {
                     .status(RequestStatus.CONFIRMED)
                     .build();
         } else {
-            if (event.getParticipantLimit() ==0) {
+            if (event.getParticipantLimit() == 0) {
                 request = Request.builder()
                         .event(event)
                         .requester(user)

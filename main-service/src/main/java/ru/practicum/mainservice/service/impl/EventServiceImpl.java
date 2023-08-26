@@ -184,7 +184,7 @@ public class EventServiceImpl implements EventService {
 
         String stateAction = updateEventRequestDto.getStateAction();
         StateAction state = null;
-        if(stateAction != null) {
+        if (stateAction != null) {
             if (!StateAction.SEND_TO_REVIEW.toString().equals(stateAction) && !StateAction.CANCEL_REVIEW.toString().equals(stateAction)) {
                 throw new ConflictException("Field StateAction is incorrect");
             }
