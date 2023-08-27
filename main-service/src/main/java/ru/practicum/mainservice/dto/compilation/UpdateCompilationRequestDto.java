@@ -9,7 +9,7 @@ import java.util.Set;
 @Data
 @Builder
 public class UpdateCompilationRequestDto {
-    @Size(min = 5, max = 255)
+    @Size(min = 5, max = 50)
     private String title;
     private Boolean pinned;
     private Set<Long> events;

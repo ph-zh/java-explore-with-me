@@ -65,7 +65,7 @@ public class Event {
     @Transient
     private long views;
 
-    public long getConfirmedRequest() {
+    public int getConfirmedRequest() {
         return confirmedRequest;
     }
 

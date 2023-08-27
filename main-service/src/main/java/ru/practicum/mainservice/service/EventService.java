@@ -6,6 +6,7 @@ import ru.practicum.mainservice.dto.event.EventShortDto;
 import ru.practicum.mainservice.dto.event.UpdateEventRequestDto;
 import ru.practicum.mainservice.model.EventState;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,7 +25,8 @@ public interface EventService {
     EventFullDto updateEventByUserIdAndEventId(long userId, long eventId, UpdateEventRequestDto updateEventRequestDto);
 
     List<EventShortDto> getEventsPublicApi(String text, List<Integer> categories, Boolean paid, LocalDateTime rangeStart,
-                                           LocalDateTime rangeEnd, boolean onlyAvailable, String sort, int from, int size);
+                                           LocalDateTime rangeEnd, boolean onlyAvailable, String sort, int from, int size,
+                                           HttpServletRequest request);
 
-    EventFullDto getEventById(long eventId);
+    EventFullDto getEventById(long eventId, HttpServletRequest request);
 }

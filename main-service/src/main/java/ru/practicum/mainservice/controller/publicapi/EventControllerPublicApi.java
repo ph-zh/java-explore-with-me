@@ -24,33 +24,33 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventControllerPublicApi {
     private final EventService eventService;
-    private final StatClient statClient;
-
     @Value("${service-name}")
     private String serviceName;
+    private final StatClient statClient;
 
     @GetMapping("/events")
-    public List<EventShortDto> getEventsPublicApi(@RequestParam(defaultValue = "") String text,
-                                                  @RequestParam(defaultValue = "") List<Integer> categories,
-                                                  @RequestParam(required = false) Boolean paid,
-                                                  @RequestParam(required = false) LocalDateTime rangeStart,
-                                                  @RequestParam(required = false) LocalDateTime rangeEnd,
-                                                  @RequestParam(required = false) boolean onlyAvailable,
-                                                  @RequestParam(defaultValue = "") String sort,
-                                                  @RequestParam(defaultValue = "0") @PositiveOrZero int from,
-                                                  @RequestParam(defaultValue = "10") @Positive int size,
-                                                  HttpServletRequest request) {
+    public synchronized List<EventShortDto> getEventsPublicApi(@RequestParam(defaultValue = "") String text,
+                                                               @RequestParam(defaultValue = "") List<Integer> categories,
+                                                               @RequestParam(required = false) Boolean paid,
+                                                               @RequestParam(required = false) LocalDateTime rangeStart,
+                                                               @RequestParam(required = false) LocalDateTime rangeEnd,
+                                                               @RequestParam(required = false) boolean onlyAvailable,
+                                                               @RequestParam(defaultValue = "") String sort,
+                                                               @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                                               @RequestParam(defaultValue = "10") @Positive int size,
+                                                               HttpServletRequest request) {
         sendRequestToStatService(request);
 
-        return eventService.getEventsPublicApi(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
+        return eventService.getEventsPublicApi(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from,
+                size, request);
     }
 
     @GetMapping("/events/{eventId}")
-    public EventFullDto getEventById(@PathVariable @Positive long eventId,
-                                     HttpServletRequest request) {
+    public synchronized EventFullDto getEventById(@PathVariable @Positive long eventId,
+                                                  HttpServletRequest request) {
         sendRequestToStatService(request);
 
-        return eventService.getEventById(eventId);
+        return eventService.getEventById(eventId, request);
     }
 
     private void sendRequestToStatService(HttpServletRequest request) {

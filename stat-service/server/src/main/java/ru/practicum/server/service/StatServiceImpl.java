@@ -9,6 +9,7 @@ import ru.practicum.server.model.EndpointHit;
 import ru.practicum.server.model.StatHits;
 import ru.practicum.server.repository.StatServerRepository;
 
+import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +28,10 @@ public class StatServiceImpl implements StatService {
     @Override
     public List<StatResponseDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
         List<StatHits> stats;
+
+        if (end.isBefore(start)) {
+            throw new InvalidParameterException("End time no be after start time");
+        }
 
         if (uris.isEmpty()) {
             stats = statServerRepository.findAllStats(start, end, unique);
