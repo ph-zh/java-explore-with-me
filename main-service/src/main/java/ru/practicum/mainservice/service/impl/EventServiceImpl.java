@@ -19,7 +19,6 @@ import ru.practicum.mainservice.exception.NotFoundException;
 import ru.practicum.mainservice.mapper.DateTimeMapper;
 import ru.practicum.mainservice.mapper.EventMapper;
 import ru.practicum.mainservice.model.*;
-import ru.practicum.mainservice.model.QEvent;
 import ru.practicum.mainservice.pagination.OffsetBasedPageRequest;
 import ru.practicum.mainservice.repository.CategoryRepository;
 import ru.practicum.mainservice.repository.EventRepository;
