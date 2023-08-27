@@ -325,7 +325,9 @@ public class EventServiceImpl implements EventService {
             ev.setViews(hits.getOrDefault(ev.getId(), 0L));
         }
 
-        Map<Long, Integer> confirmedRequests = requestRepository.findAllConfirmedRequestsByEventIds(ids, RequestStatus.CONFIRMED);
+        Map<Long, Integer> confirmedRequests = requestRepository.findAllConfirmedRequestsByEventIdsAndStatus(ids, RequestStatus.CONFIRMED)
+                .stream()
+                .collect(Collectors.toMap(r -> r.getEvent().getId(), r -> 1, (oldV, newV) -> oldV + 1));
 
         for (Event ev : events) {
             ev.setConfirmedRequest(confirmedRequests.getOrDefault(ev.getId(), 0));
