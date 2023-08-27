@@ -6,7 +6,6 @@ import ru.practicum.mainservice.model.Request;
 import ru.practicum.mainservice.model.RequestStatus;
 
 import java.util.List;
-import java.util.Map;
 
 public interface RequestRepository extends JpaRepository<Request, Long> {
     List<Request> findAllByEventId(long eventId);
